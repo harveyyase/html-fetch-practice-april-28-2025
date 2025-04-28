@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Tech Insights</h1>
+
+
+    <div class="navbar">
+        <a>Home</a>
+        <a>Entertainment</a>
+        <a>News</a>
+        <a>Sports</a>
+        <a>More</a>
+    </div>
+
+    <div class="topimg">
+        <h1>Featured</h1>
+    </div>
+
+    <div class="other-posts">
+
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const url = 'https://web1sem124.dcism.org/MiniBlog.php';
+           
+        fetch(url)
+        .then(response => {
+            if(!response.ok){
+                throw new Error ('Network response was not ok');
+            }
+
+            return response.json();
+        })
+
+        .then(data => {
+                
+                const top = document.querySelector('.topimg');
+                const topdata = data.featured_post;
+                        const topimgdiv = document.createElement('div');
+                        topimgdiv.className = 'topdiv';
+                        topimgdiv.innerHTML = ` 
+                                                <img src=${topdata.image}>
+                                                ${topdata.title}<br>
+                                                ${topdata.content}<br>
+                                                ${topdata.author} - ${topdata.date}<br>`;
+                top.appendChild(topimgdiv);
+                const bottomdata = data.other_posts;
+                for(let i = 0; i < 4; i++) {
+                    const other = document.querySelector('.other-posts');
+                   
+                        const bottomimgdiv = document.createElement('div');
+                        bottomimgdiv.className = 'topdiv';
+                        bottomimgdiv.innerHTML = ` 
+                                                <img src=${bottomdata[i].image}>
+                                                ${bottomdata[i].title}<br>
+                                                ${bottomdata[i].content}<br>
+                                                ${bottomdata[i].author} - ${bottomdata[i].date}<br>`;
+                other.appendChild(bottomimgdiv);
+
+                }
+                
+
+        })
+        
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        })
+        });
+        document
+
+    </script>
+</body>
+</html>
